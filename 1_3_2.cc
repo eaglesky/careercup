@@ -69,13 +69,13 @@ int main(int argc, char** argv)
     for (int i = 0; i < 5; i++)
     {
         std::cout << "Test" << i << ": " << std::endl;
-        remove_dup2(test_strs[i]);
+        remove_dup1(test_strs[i]);
         std::cout << test_strs[i] << std::endl;
         std::cout << std::endl;
     }
 
     std::cout << "Test5: " << std::endl;
-    remove_dup2(NULL);
+    remove_dup1(NULL);
   
     return 0;
 }
