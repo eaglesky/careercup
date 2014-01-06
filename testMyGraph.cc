@@ -3,7 +3,7 @@
 
 int main(int argc, char** argv)
 {
-    std::ifstream fin1("Graph1.txt");
+    std::ifstream fin1("Graph2.txt");
     Graph* g1 = new Graph;
 
     
@@ -21,6 +21,12 @@ int main(int argc, char** argv)
         printBFSPath(g1, i);
         std::cout << std::endl;
     }
+
+    std::cout << "DFS result: " << std::endl;
+    dfs(g1);
+    std::cout << std::endl;
+
+    destroyGraph(g1);
     delete g1;
 
     return 0;

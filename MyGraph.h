@@ -53,6 +53,40 @@ void bfs(Graph* g, int s)
     delete []status;
 }
 
+void dfsTree(Graph* g, int s, int* status)
+{
+  
+    EdgeNode* p = g->vertices[s];
+    status[p->id] = 1;
+
+    std::cout << s << ", ";
+    p = p->next;
+    while(p)
+    {
+        int cur = p->id;
+        if (status[cur] == 0)
+            dfsTree(g, cur, status);
+
+        p = p->next;
+    }
+}
+
+
+void dfs(Graph* g)
+{
+    int* status = new int[g->vNum];
+    for (int i = 0; i < g->vNum; i++)
+        status[i] = 0;
+
+    for (int i = 0; i < g->vNum; i++)
+    {
+        if (status[i] == 0)
+            dfsTree(g, i, status);
+    }
+
+    delete []status;
+}
+
 void printBFSPath(Graph* g, int v)
 {
     int* parents = g->parents;
@@ -128,4 +162,19 @@ void printGraphSimple(Graph* g)
         }
         std::cout << std::endl;
     }
+}
+
+void destroyGraph(Graph* g)
+{
+    for (int i = 0; i < g->vNum; i++)
+    {
+        EdgeNode* p = g->vertices[i];
+        while (p)
+        {
+            EdgeNode* q = p;
+            p = p->next;
+            delete q;
+        }
+    }
+   
 }
