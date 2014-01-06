@@ -4,3 +4,5 @@ test_vector
 cscope.*
 test_hashmap
 test_multimap
+MyBST.h
+MyBT.h
