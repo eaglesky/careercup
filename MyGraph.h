@@ -15,6 +15,17 @@ typedef struct {
     bool isDirected;
 } Graph;
 
+void processVertex(Graph* g, int id)
+{
+    std::cout << id  << ", " ;
+}
+
+void processEdge(Graph* g, EdgeNode* v1, EdgeNode* v2)
+{
+    std::cout << "Edge: " << v1->id << ", " << v2->id << std::endl;
+
+}
+
 void bfs(Graph* g, int s)
 {
     delete [](g->parents);
@@ -26,7 +37,7 @@ void bfs(Graph* g, int s)
 
     std::list<int> queue;
     queue.push_back(s);
-    status[s] = 1;
+    status[s] = 1; // Discovered
     (g->parents)[s] = -1;
 
     while(!queue.empty())
@@ -34,15 +45,20 @@ void bfs(Graph* g, int s)
         int cur = queue.front();
         queue.pop_front();
 
-        std::cout << cur << ", ";
+    //    std::cout << cur << ", ";
+        processVertex(g, cur);
 
+        status[cur] = 2; //Processed
         EdgeNode* p = g->vertices[cur];
         p = p->next;
         while(p)
         {
+            if (g->isDirected || (status[p->id]!=2))
+                processEdge(g, g->vertices[cur], p);
+
             if (status[p->id] == 0) {
                 queue.push_back(p->id);
-                status[p->id] = 1;
+                status[p->id] = 1;//Discovered
                 g->parents[p->id] = cur;
             }
             p = p->next;
@@ -57,31 +73,44 @@ void dfsTree(Graph* g, int s, int* status)
 {
   
     EdgeNode* p = g->vertices[s];
-    status[p->id] = 1;
+    status[s] = 1;//Discovered
 
-    std::cout << s << ", ";
+   // std::cout << s << ", ";
+    processVertex(g, s);
     p = p->next;
     while(p)
     {
         int cur = p->id;
-        if (status[cur] == 0)
+        if (status[cur] == 0) {
+            processEdge(g, g->vertices[s], p);
+            g->parents[cur] = s;
             dfsTree(g, cur, status);
+        } else if (g->isDirected || ((g->parents[s]!=cur)&&(status[cur]!=2))){
+            processEdge(g, g->vertices[s], p);
+        }
 
         p = p->next;
     }
+
+    status[s] = 2; //Processed
 }
 
 
 void dfs(Graph* g)
 {
+    delete [](g->parents);
+    g->parents = new int[g->vNum];
+
     int* status = new int[g->vNum];
     for (int i = 0; i < g->vNum; i++)
         status[i] = 0;
 
     for (int i = 0; i < g->vNum; i++)
     {
-        if (status[i] == 0)
+        if (status[i] == 0) {
+            g->parents[i] = -1;
             dfsTree(g, i, status);
+        }
     }
 
     delete []status;
