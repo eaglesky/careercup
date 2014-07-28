@@ -3,3 +3,10 @@ vector.
 
 13_1.cc: Not easy to implement! Read file line by line, check end of file.
 Circular array.
+
+17_1.cc: Swap in place.
+
+test_bit.cc : Bit shifting of signed number
+
+17_5.cc: cound hits of guess number game; Vector of strings initializtion;
+Simple string usage;  
