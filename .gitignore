@@ -1,8 +1,8 @@
-test_map
-test_list
-test_vector
-cscope.*
-test_hashmap
-test_multimap
-MyBST.h
-MyBT.h
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!*.cc
+!*.h
+!*.txt

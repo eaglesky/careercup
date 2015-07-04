@@ -81,5 +81,9 @@ int main(int argc, char** argv)
     print_vector(int_vec);
     std::cout << std::endl;
 
+    std::vector<std::string> words(5, "Mo");
+    for (std::string s : words)
+        std::cout << s << std::endl;
+
     return 0;
 }
